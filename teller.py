@@ -1,15 +1,12 @@
 class Teller:
-    def __init__(self, colors, position, fortunes):
+    def __init__(self, colors, fortunes):
         self.colors = colors
-        self.position = position
         self.fortunes = fortunes
     
-    def toggle(self):
-        self.position = not self.position
-    
+    # helped debugging
     def __str__(self):
         ret = (
             f'{self.colors[0]}\n'
-            f'{self.position}'     
+            f'{self.fortunes}'     
         )
         return ret

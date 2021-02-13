@@ -1,20 +1,9 @@
-from fortune import Fortune
 from teller import Teller
 import time
-
-# generate fortunes
-fortunes = {}
-for x in range(8):
-    num = x+1
-    if x % 2 == 0:
-        fortuneText = 'crappy fortune'
-    else:
-        fortuneText = 'happy fortune'
-
-    fortunes[num] = Fortune(num, f'{fortuneText} {num}!')
+from eightball import EightBall
 
 # generate teller
-teller = Teller(["blue", "red", "green", "yellow"], False, fortunes)
+teller = Teller(["blue", "red", "green", "yellow"], range(8))
 
 def print_colors():
     print("the great paku-paku shows these colors. choose one:")
@@ -23,10 +12,10 @@ def print_colors():
 def print_numbers():
     print('the paku-paku shows these numbers:')
     for fortune in teller.fortunes:
-        print(f'{fortune}...')
+        print(f'{fortune+1}...')
     print('choose wisely...')
 
-# todo: the game
+# the game
 play = True
 while play:
     print("what do you ask of the all powerful paku-paku?")
@@ -45,19 +34,21 @@ while play:
     print(f'{color} has {len(color)} letters...')
     for x in range(len(color)):
         time.sleep(.5)
-        teller.toggle()
         print(x+1)
     
     print_numbers()
     number = input()
 
-    while not teller.fortunes.keys().__contains__(int(number)):
+    while not teller.fortunes.__contains__(int(number)):
         print('the paku-paku insists on one of its displayed numbers...')
         print_numbers()
         number = input()
 
     print('ahhh your fortune is revealed:')
-    print(f'{teller.fortunes[int(number)].fortune}')
+    # todo: should this be done earlier?
+    eightBall = EightBall(question)
+    response = eightBall.getFortune()
+    print(response)
 
     print('\nwould you care to ask another question?')
     playAgain = input()
